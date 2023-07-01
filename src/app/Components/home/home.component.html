@@ -1,0 +1,72 @@
+<h1>Comapny Name : {{companyDetails.name}}</h1>
+
+
+<div>
+  <img [src]="companyDetails.logo" alt="Logo" />
+
+</div>
+<button class="btn btn-dark" (click)="toggleService()">
+  Toggle Service
+</button>
+<br>
+<h1>Capital {{companyDetails.Capital | currency : 'EUR': false}} </h1><br>
+<h1>Capital {{companyDetails.Capital | uSDtoEGP : 20 | currency : 'EGP' }} </h1><br>
+<h1>establishDate: {{companyDetails.establishDate | date : 'medium'}}} </h1>
+<div>
+
+  <ul [hidden]="!isServicesDisplayed">
+    <h1>Servi ces </h1>
+
+    <li *ngFor="let item of companyDetails.services">
+      {{item}}
+    </li>
+  </ul>
+
+</div>
+git remote add origin https://github.com/Mohamedtharwat8/AngularDemo.git
+
+
+
+<div>
+  Propert  Binding: <input  type="text" [value]="companyDetails.name"> <br>
+  Two-Way  Binding: <input  type="text" [(ngModel)]="companyDetails.name">
+</div>
+<h1>List of our main products </h1>
+
+<table class="table">
+  <thead>
+    <tr class="bg-dark text-white">
+      <th>ID</th>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- [hidden]="prd.Quantity === 0" -->
+
+    <tr *ngFor="let prd of mainProducts; let i = index"
+
+               [ngStyle]="{'background-color':(prd.Quantity === 0)? 'Yellow' : 'White'}"
+               [ngClass]="{'bg-danger':(prd.Quantity === 1)}"
+               >
+      <td>{{prd.ID}}</td>
+      <td>{{prd.Name}}</td>
+
+      <td>
+
+        <!-- <div *ngIf="prd.Quantity > 0"> {{prd.Quantity}}</div>
+              <div *ngIf="prd.Quantity == 0"> Out Of Stock</div> -->
+
+        <div [ngSwitch]="prd.Quantity">
+          <div *ngSwitchCase="0">Out of Stock</div>
+          <div *ngSwitchCase="1" appHighlight>Last Item</div>
+          <div *ngSwitchDefault>{{prd.Quantity}}</div>
+        </div>
+      </td>
+
+      <td>{{prd.Price}}</td>
+
+    </tr>
+  </tbody>
+</table>
